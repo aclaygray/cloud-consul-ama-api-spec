@@ -501,7 +501,7 @@
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.CustomProviders/resourceProviders/public/consulSnapshots": {
-      "get": {
+      "post": {
         "summary": "ListSnapshots is an API endpoint called by Azure to retrieve all snapshots\nwithin a managed app.",
         "operationId": "ListSnapshots",
         "responses": {
@@ -550,6 +550,14 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.ListSnapshotsRequest"
+            }
           }
         ],
         "tags": [
@@ -1416,6 +1424,20 @@
         }
       },
       "title": "See ConsulAMAService.ListCluster"
+    },
+    "hashicorp.cloud.consulama.ama.ListSnapshotsRequest": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "description": "subscription_id is the ID of the Azure subscription the Consul snapshots\nexist in. This is the customer's subscription ID."
+        },
+        "resourceGroup": {
+          "type": "string",
+          "description": "resource_group is the resource group in which the Consul snapshots are\npersisted. This is the AMA instance's managed resource group."
+        }
+      },
+      "title": "See ConsulAMAService.ListSnapshots"
     },
     "hashicorp.cloud.consulama.ama.ListSnapshotsResponse": {
       "type": "object",
