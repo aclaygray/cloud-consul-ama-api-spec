@@ -3,7 +3,7 @@
   "info": {
     "title": "HashiCorp Consul Service (HCS)",
     "description": "Azure Managed App API for HCS",
-    "version": "2020-09-09"
+    "version": "2020-10-06"
   },
   "schemes": [
     "https"
@@ -493,6 +493,63 @@
             "schema": {
               "$ref": "#/definitions/hashicorp.cloud.consulama.ama.CreateClusterRequest"
             }
+          }
+        ],
+        "tags": [
+          "ConsulAMAService"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.CustomProviders/resourceProviders/public/consulSnapshots": {
+      "get": {
+        "summary": "ListSnapshots is an API endpoint called by Azure to retrieve all snapshots\nwithin a managed app.",
+        "operationId": "ListSnapshots",
+        "responses": {
+          "200": {
+            "description": "Returned when the snapshots were retrieved successfully.",
+            "schema": {
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.ListSnapshotsResponse"
+            }
+          },
+          "400": {
+            "description": "Returned when the request contained invalid data.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "401": {
+            "description": "Returned when the request did not contain a valid client certificate.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "404": {
+            "description": "Returned when the requested managed app does not exist.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "500": {
+            "description": "Returned when there was an internal error.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "description": "subscription_id is the ID of the Azure subscription the Consul snapshots\nexist in. This is the customer's subscription ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resourceGroup",
+            "description": "resource_group is the resource group in which the Consul snapshots are\npersisted. This is the AMA instance's managed resource group.",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "tags": [
@@ -1360,6 +1417,19 @@
       },
       "title": "See ConsulAMAService.ListCluster"
     },
+    "hashicorp.cloud.consulama.ama.ListSnapshotsResponse": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/hashicorp.cloud.consulama.ama.SnapshotResponse"
+          },
+          "description": "value is the list of snapshots in the format of SnapshotResponses."
+        }
+      },
+      "title": "See ConsulAMAService.ListSnapshots"
+    },
     "hashicorp.cloud.consulama.ama.Operation": {
       "type": "object",
       "properties": {
@@ -1475,6 +1545,61 @@
         }
       },
       "description": "Plan represents an Azure Marketplace plan."
+    },
+    "hashicorp.cloud.consulama.ama.SnapshotProperties": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "string",
+          "format": "int64",
+          "description": "size is the size of the snapshot in bytes."
+        },
+        "productVersion": {
+          "type": "string",
+          "description": "product_version is the version of the product of the cluster at creation."
+        },
+        "restoredAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "restored_at notes the time that this snapshot was restored."
+        },
+        "requestedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "requested_at notes the time that this snapshot was requested."
+        },
+        "finishedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "finished_at notes the time that this snapshot was finished."
+        }
+      },
+      "title": "SnapshotProperties\nTODO-agray populate documentation\nTOOD-agray figure out what we want to actually expose here"
+    },
+    "hashicorp.cloud.consulama.ama.SnapshotResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "id is the complete resource ID.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "name is the resource name as given by Azure in the ListSnapshotsRequest.",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "description": "type is the resource type as given by Azure in the ListSnapshotsRequest.",
+          "readOnly": true
+        },
+        "properties": {
+          "$ref": "#/definitions/hashicorp.cloud.consulama.ama.SnapshotProperties",
+          "description": "properties are the properties of the snapshot."
+        }
+      },
+      "title": "See ConsulAMAService.ListSnapshots"
     },
     "hashicorp.cloud.consulama.ama.UpdateClusterRequest": {
       "type": "object",
