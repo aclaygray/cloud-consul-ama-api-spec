@@ -1816,7 +1816,8 @@
           "description": "properties are the properties of the snapshot."
         }
       },
-      "title": "See ConsulAMAService.ListSnapshots"
+      "title": "See ConsulAMAService.ListSnapshots",
+      "x-ms-azure-resource": true
     },
     "hashicorp.cloud.consulama.ama.UpdateClusterRequest": {
       "type": "object",
