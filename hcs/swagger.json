@@ -501,7 +501,7 @@
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.CustomProviders/resourceProviders/public/consulSnapshots": {
-      "post": {
+      "get": {
         "summary": "ListSnapshots is an API endpoint called by Azure to retrieve all snapshots\nwithin a managed app.",
         "operationId": "ListSnapshots",
         "responses": {
@@ -550,13 +550,204 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "tags": [
+          "ConsulAMAService"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.CustomProviders/resourceProviders/public/consulSnapshots/{name}": {
+      "get": {
+        "operationId": "GetSnapshot",
+        "responses": {
+          "200": {
+            "description": "Returned when the snapshot was retrieved successfully.",
+            "schema": {
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.SnapshotResponse"
+            }
+          },
+          "202": {
+            "description": "Returned when the snapshot creation is still ongoing.",
+            "schema": {
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.SnapshotResponse"
+            }
+          },
+          "400": {
+            "description": "Returned when the request contained invalid data.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "401": {
+            "description": "Returned when the request did not contain a valid client certificate.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "404": {
+            "description": "Returned when the requested managed app or snapshot does not exist.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "500": {
+            "description": "Returned when there was an internal error.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "description": "subscription_id is the ID of the Azure subscription the Consul snapshot\nexists in. This is the customer's subscription ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resourceGroup",
+            "description": "resource_group is the resource group in which the Consul snapshot exists\nin. This is the AMA instance's managed resource group.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "description": "name is the resource name of the Consul snapshot resource.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ConsulAMAService"
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteSnapshot",
+        "responses": {
+          "200": {
+            "description": "Returned when the snapshot was deleted successfully.",
+            "schema": {
+              "$ref": "#/definitions/google.protobuf.Empty"
+            }
+          },
+          "400": {
+            "description": "Returned when the request contained invalid data.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "401": {
+            "description": "Returned when the request did not contain a valid client certificate.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "404": {
+            "description": "Returned when the requested managed app or snapshot does not exist.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "500": {
+            "description": "Returned when there was an internal error.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "description": "subscription_id is the ID of the Azure subscription the Consul snapshot\nexists in. This is the customer's subscription ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resourceGroup",
+            "description": "resource_group is the resource group in which the Consul snapshot exists.\nThis is the AMA instance's managed resource group.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "description": "name is the resource name of the Consul snapshot resource.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ConsulAMAService"
+        ]
+      },
+      "put": {
+        "operationId": "CreateSnapshot",
+        "responses": {
+          "200": {
+            "description": "Returned when the snapshot creation was completed.",
+            "schema": {
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.SnapshotResponse"
+            }
+          },
+          "202": {
+            "description": "Returned when the snapshot creation was initiated.",
+            "schema": {
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.SnapshotResponse"
+            }
+          },
+          "400": {
+            "description": "Returned when the request contained invalid data.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "401": {
+            "description": "Returned when the request did not contain a valid client certificate.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "500": {
+            "description": "Returned when there was an internal error.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "description": "subscription_id is the ID of the Azure subscription the new Consul\nsnapshot should be created in. This is the customer's subscription ID.\nPassed in the request path.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resourceGroup",
+            "description": "resource_group is the resource group in which the new Consul snapshot\nshould be created. This is the AMA instance's managed resource group.\nPassed in the request path.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "description": "name is the resource name of the new Consul snapshot resource.\nPassed in the request path and in the request path.",
+            "in": "path",
+            "required": true,
+            "type": "string"
           },
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.ListSnapshotsRequest"
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.CreateSnapshotRequest"
             }
           }
         ],
@@ -1195,6 +1386,24 @@
       },
       "description": "CreateFederationTokenResponse contains the new Consul Federation Token."
     },
+    "hashicorp.cloud.consulama.ama.CreateSnapshotRequest": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "description": "subscription_id is the ID of the Azure subscription the new Consul\nsnapshot should be created in. This is the customer's subscription ID.\nPassed in the request path."
+        },
+        "resourceGroup": {
+          "type": "string",
+          "description": "resource_group is the resource group in which the new Consul snapshot\nshould be created. This is the AMA instance's managed resource group.\nPassed in the request path."
+        },
+        "name": {
+          "type": "string",
+          "description": "name is the resource name of the new Consul snapshot resource.\nPassed in the request path and in the request path."
+        }
+      },
+      "title": "See ConsulAMAService.CreateSnapshot"
+    },
     "hashicorp.cloud.consulama.ama.CreateTokenRequest": {
       "type": "object",
       "properties": {
@@ -1424,20 +1633,6 @@
         }
       },
       "title": "See ConsulAMAService.ListCluster"
-    },
-    "hashicorp.cloud.consulama.ama.ListSnapshotsRequest": {
-      "type": "object",
-      "properties": {
-        "subscriptionId": {
-          "type": "string",
-          "description": "subscription_id is the ID of the Azure subscription the Consul snapshots\nexist in. This is the customer's subscription ID."
-        },
-        "resourceGroup": {
-          "type": "string",
-          "description": "resource_group is the resource group in which the Consul snapshots are\npersisted. This is the AMA instance's managed resource group."
-        }
-      },
-      "title": "See ConsulAMAService.ListSnapshots"
     },
     "hashicorp.cloud.consulama.ama.ListSnapshotsResponse": {
       "type": "object",
