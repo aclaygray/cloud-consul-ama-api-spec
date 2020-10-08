@@ -502,7 +502,8 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.CustomProviders/resourceProviders/public/consulSnapshots": {
       "get": {
-        "summary": "ListSnapshots is an API endpoint called by Azure to retrieve all snapshots\nwithin a managed app.",
+        "summary": "ListSnapshots is an API endpoint called by Azure to retrieve all Consul\ncluster's snapshots for a managed app. This is one of the API endpoints\nrequired to implement a custom resource provider.",
+        "description": "see https://docs.microsoft.com/en-us/azure/managed-applications/custom-providers-overview",
         "operationId": "ListSnapshots",
         "responses": {
           "200": {
@@ -559,6 +560,8 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.CustomProviders/resourceProviders/public/consulSnapshots/{name}": {
       "get": {
+        "summary": "GetSnapshot is an API endpoint called by Azure to retrieve the details of\na Consul cluster's snapshot. This is one of the API endpoints required to\nimplement a custom resource provider.",
+        "description": "see https://docs.microsoft.com/en-us/azure/managed-applications/custom-providers-overview",
         "operationId": "GetSnapshot",
         "responses": {
           "200": {
@@ -626,6 +629,8 @@
         ]
       },
       "delete": {
+        "summary": "DeleteSnapshot is an API endpoint called by Azure to remove a Consul\ncluster's snapshot. This is one of the API endpoints required to\nimplement a custom resource provider.",
+        "description": "see https://docs.microsoft.com/en-us/azure/managed-applications/custom-providers-overview",
         "operationId": "DeleteSnapshot",
         "responses": {
           "200": {
@@ -687,6 +692,8 @@
         ]
       },
       "put": {
+        "summary": "CreateSnapshot is an API endpoint called when there is a PUT request to\nAzure Resource Manager on one of the custom resources of type\n\"consulSnapshots\". This is one of the API endpoints required to implement\na custom resource provider.",
+        "description": "see https://docs.microsoft.com/en-us/azure/managed-applications/custom-providers-overview",
         "operationId": "CreateSnapshot",
         "responses": {
           "200": {
@@ -737,7 +744,7 @@
           },
           {
             "name": "name",
-            "description": "name is the resource name of the new Consul snapshot resource.\nPassed in the request path and in the request path.",
+            "description": "name is the resource name of the new Consul snapshot resource.\nPassed in the request path.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -927,6 +934,124 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/hashicorp.cloud.consulama.ama.GetOperationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ConsulAMAService"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.CustomProviders/resourceProviders/public/renameSnapshot": {
+      "post": {
+        "summary": "RenameSnapshot is used to rename a snapshot for a Consul cluster",
+        "operationId": "RenameSnapshot",
+        "responses": {
+          "200": {
+            "description": "Returned when the rename request was handled successfully.",
+            "schema": {
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.RenameSnapshotResponse"
+            }
+          },
+          "400": {
+            "description": "Returned when the request contained invalid data.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "401": {
+            "description": "Returned when the request did not contain a valid authentication token.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "500": {
+            "description": "Returned when there was an internal error.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "description": "subscription_id is the ID of the Azure subscription the Consul snapshot\nexists in. This is the customer's subscription ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resourceGroup",
+            "description": "resource_group is the resource group in which the Consul snapshot exists.\nThis is the AMA instance's managed resource group.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.RenameSnapshotRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ConsulAMAService"
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.CustomProviders/resourceProviders/public/restoreSnapshot": {
+      "post": {
+        "summary": "RestoreSnapshot is used to restore a snapshot for a Consul cluster",
+        "operationId": "RestoreSnapshot",
+        "responses": {
+          "200": {
+            "description": "Returned when the restore request was handled successfully.",
+            "schema": {
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.RestoreSnapshotResponse"
+            }
+          },
+          "400": {
+            "description": "Returned when the request contained invalid data.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "401": {
+            "description": "Returned when the request did not contain a valid authentication token.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "500": {
+            "description": "Returned when there was an internal error.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "description": "subscription_id is the ID of the Azure subscription the Consul snapshot\nexists in. This is the customer's subscription ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resourceGroup",
+            "description": "resource_group is the resource group in which the Consul snapshot exists.\nThis is the AMA instance's managed resource group.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.RestoreSnapshotRequest"
             }
           }
         ],
@@ -1399,7 +1524,7 @@
         },
         "name": {
           "type": "string",
-          "description": "name is the resource name of the new Consul snapshot resource.\nPassed in the request path and in the request path."
+          "description": "name is the resource name of the new Consul snapshot resource.\nPassed in the request path."
         }
       },
       "title": "See ConsulAMAService.CreateSnapshot"
@@ -1679,6 +1804,38 @@
       "default": "PENDING",
       "description": "State is one of the states that an Operation can be in.\n\nThe states are purposely coarse grained to make it easy to understand the operation\nstate machine: pending => running => done. No other state transitions are possible. \nSuccess/failure can be determined based on the result oneof."
     },
+    "hashicorp.cloud.consulama.ama.RenameSnapshotRequest": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "description": "subscription_id is the ID of the Azure subscription the Consul snapshot\nexists in. This is the customer's subscription ID."
+        },
+        "resourceGroup": {
+          "type": "string",
+          "description": "resource_group is the resource group in which the Consul snapshot exists.\nThis is the AMA instance's managed resource group."
+        },
+        "snapsnotId": {
+          "type": "string",
+          "description": "snapshot_id is the ID of the Consul snapshot to rename."
+        },
+        "name": {
+          "type": "string",
+          "description": "name is the name that the snapshot will be renamed to."
+        }
+      },
+      "title": "See ConsulAMAService.RenameSnapshot"
+    },
+    "hashicorp.cloud.consulama.ama.RenameSnapshotResponse": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/hashicorp.cloud.consulama.ama.SnapshotProperties",
+          "description": "properties are the properties of the snapshot."
+        }
+      },
+      "title": "See ConsulAMAService.RenameSnapshot"
+    },
     "hashicorp.cloud.consulama.ama.ResourceNotificationRequest": {
       "type": "object",
       "properties": {
@@ -1762,6 +1919,34 @@
         }
       },
       "description": "Plan represents an Azure Marketplace plan."
+    },
+    "hashicorp.cloud.consulama.ama.RestoreSnapshotRequest": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "description": "subscription_id is the ID of the Azure subscription the Consul snapshot\nexists in. This is the customer's subscription ID."
+        },
+        "resourceGroup": {
+          "type": "string",
+          "description": "resource_group is the resource group in which the Consul snapshot exists.\nThis is the AMA instance's managed resource group."
+        },
+        "snapsnotId": {
+          "type": "string",
+          "description": "snapshot_id is the ID of the Consul snapshot to restore."
+        }
+      },
+      "title": "See ConsulAMAService.RestoreSnapshot"
+    },
+    "hashicorp.cloud.consulama.ama.RestoreSnapshotResponse": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "$ref": "#/definitions/hashicorp.cloud.consulama.ama.Operation",
+          "title": "operation used to track the progress of the snapshot restore"
+        }
+      },
+      "title": "See ConsulAMAService.RestoreSnapshot"
     },
     "hashicorp.cloud.consulama.ama.SnapshotProperties": {
       "type": "object",
