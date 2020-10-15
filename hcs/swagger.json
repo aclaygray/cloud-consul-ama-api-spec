@@ -1815,7 +1815,7 @@
           "type": "string",
           "description": "resource_group is the resource group in which the Consul snapshot exists.\nThis is the AMA instance's managed resource group."
         },
-        "snapsnotId": {
+        "snapshotId": {
           "type": "string",
           "description": "snapshot_id is the ID of the Consul snapshot to rename."
         },
@@ -1931,7 +1931,7 @@
           "type": "string",
           "description": "resource_group is the resource group in which the Consul snapshot exists.\nThis is the AMA instance's managed resource group."
         },
-        "snapsnotId": {
+        "snapshotId": {
           "type": "string",
           "description": "snapshot_id is the ID of the Consul snapshot to restore."
         }
