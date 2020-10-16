@@ -1485,9 +1485,9 @@
           "type": "string",
           "description": "resource_group is the resource group in which the Consul snapshot exists.\nThis is the AMA instance's managed resource group."
         },
-        "name": {
+        "snapshotId": {
           "type": "string",
-          "description": "name is the resource name of the Consul snapshot resource."
+          "description": "snapshot_id is the ID of the Consul snapshot to delete:."
         }
       },
       "title": "See ConsulAMAService.DeleteSnapshot"
