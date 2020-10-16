@@ -732,6 +732,65 @@
         ]
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.CustomProviders/resourceProviders/public/getSnapshot": {
+      "post": {
+        "summary": "GetSnapshot is used to get a snapshot for a Consul cluster",
+        "operationId": "GetSnapshot",
+        "responses": {
+          "200": {
+            "description": "Returned when the get request was handled successfully.",
+            "schema": {
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.GetSnapshotResponse"
+            }
+          },
+          "400": {
+            "description": "Returned when the request contained invalid data.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "401": {
+            "description": "Returned when the request did not contain a valid authentication token.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          },
+          "500": {
+            "description": "Returned when there was an internal error.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "description": "subscription_id is the ID of the Azure subscription the Consul snapshot\nexists in. This is the customer's subscription ID.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "resourceGroup",
+            "description": "resource_group is the resource group in which the Consul snapshot exists\nin. This is the AMA instance's managed resource group.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/hashicorp.cloud.consulama.ama.GetSnapshotRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ConsulAMAService"
+        ]
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.CustomProviders/resourceProviders/public/listSnapshots": {
       "post": {
         "summary": "ListSnapshots is used to list snapshots for a Consul cluster",
@@ -1697,6 +1756,34 @@
         }
       },
       "title": "See ConsulAMAService.GetOperation"
+    },
+    "hashicorp.cloud.consulama.ama.GetSnapshotRequest": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string",
+          "description": "subscription_id is the ID of the Azure subscription the Consul snapshot\nexists in. This is the customer's subscription ID."
+        },
+        "resourceGroup": {
+          "type": "string",
+          "description": "resource_group is the resource group in which the Consul snapshot exists\nin. This is the AMA instance's managed resource group."
+        },
+        "name": {
+          "type": "string",
+          "description": "name is the resource name of the Consul snapshot resource."
+        }
+      },
+      "title": "See ConsulAMAService.GetSnapshot"
+    },
+    "hashicorp.cloud.consulama.ama.GetSnapshotResponse": {
+      "type": "object",
+      "properties": {
+        "snapshot": {
+          "$ref": "#/definitions/hashicorp.cloud.consulama.ama.SnapshotResponse",
+          "description": "snapshot contains the properties of the snapshot."
+        }
+      },
+      "title": "See ConsulAMAService.GetSnapshot"
     },
     "hashicorp.cloud.consulama.ama.ListClustersResponse": {
       "type": "object",
