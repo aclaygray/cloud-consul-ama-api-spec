@@ -1886,9 +1886,9 @@
     "hashicorp.cloud.consulama.ama.RenameSnapshotResponse": {
       "type": "object",
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/hashicorp.cloud.consulama.ama.SnapshotProperties",
-          "description": "properties are the properties of the snapshot."
+        "snapshot": {
+          "$ref": "#/definitions/hashicorp.cloud.consulama.ama.SnapshotResponse",
+          "description": "snapshot is contains all relevant fields/properties of the snapshot."
         }
       },
       "title": "See ConsulAMAService.RenameSnapshot"
