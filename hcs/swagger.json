@@ -1508,6 +1508,10 @@
         "operation": {
           "$ref": "#/definitions/hashicorp.cloud.consulama.ama.Operation",
           "title": "operation used to track the progress of the snapshot create"
+        },
+        "snapshotId": {
+          "type": "string",
+          "description": "snapshot_id is the ID of the Consul snapshot to create."
         }
       },
       "title": "See ConsulAMAService.CreateSnapshot"
@@ -1768,9 +1772,9 @@
           "type": "string",
           "description": "resource_group is the resource group in which the Consul snapshot exists\nin. This is the AMA instance's managed resource group."
         },
-        "name": {
+        "snapshotId": {
           "type": "string",
-          "description": "name is the resource name of the Consul snapshot resource."
+          "description": "snapshot_id is the ID of the Consul snapshot to fetch."
         }
       },
       "title": "See ConsulAMAService.GetSnapshot"
