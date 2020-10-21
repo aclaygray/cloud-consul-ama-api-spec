@@ -2049,7 +2049,7 @@
           "description": "finished_at notes the time that this snapshot was finished."
         }
       },
-      "title": "TOOD-agray figure out what we want to actually expose here\nSnapshotProperties contains properties of the Consul snapshot"
+      "title": "SnapshotProperties contains properties of the Consul snapshot"
     },
     "hashicorp.cloud.consulama.ama.UpdateClusterRequest": {
       "type": "object",
