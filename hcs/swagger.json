@@ -3,7 +3,7 @@
   "info": {
     "title": "HashiCorp Consul Service (HCS)",
     "description": "Azure Managed App API for HCS",
-    "version": "2020-10-22"
+    "version": "2020-11-02"
   },
   "schemes": [
     "https"
@@ -2109,6 +2109,11 @@
         "snapshotId": {
           "type": "string",
           "description": "snapshot_id is the ID of the Consul snapshot to restore."
+        },
+        "takeSnapshot": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "take_snapshot determines if a snapshot should be taken before performing a restore."
         }
       },
       "title": "See ConsulAMAService.RestoreSnapshot"
