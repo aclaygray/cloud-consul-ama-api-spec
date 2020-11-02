@@ -1326,6 +1326,15 @@
       },
       "description": "Tier represents one billing tier of a price dimension."
     },
+    "hashicorp.cloud.consulama.ama.Boolean": {
+      "type": "string",
+      "enum": [
+        "FALSE",
+        "TRUE"
+      ],
+      "default": "FALSE",
+      "title": "Boolean is an enum for handling true/false values as Azure swagger validation doesn't\nlike bools: \nhttps://github.com/Azure/azure-rest-api-specs/blob/master/documentation/openapi-authoring-automated-guidelines.md#r3018"
+    },
     "hashicorp.cloud.consulama.ama.ClusterMode": {
       "type": "string",
       "enum": [
@@ -2111,8 +2120,7 @@
           "description": "snapshot_id is the ID of the Consul snapshot to restore."
         },
         "takeSnapshot": {
-          "type": "boolean",
-          "format": "boolean",
+          "$ref": "#/definitions/hashicorp.cloud.consulama.ama.Boolean",
           "description": "take_snapshot determines if a snapshot should be taken before performing a restore."
         }
       },
